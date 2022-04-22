@@ -1,20 +1,32 @@
-
 import tkinter as tk
 from tkinter import END, N, ttk
-#import pyaudio
+import pyaudio
 import speech_recognition as sr
+from pythonosc.udp_client import SimpleUDPClient
 r = sr.Recognizer()
+
+ip = "127.0.0.1"
+port = 9000
+client = SimpleUDPClient(ip, port)  # Create client
 
 #전송 클래스
 def setinput():
     a = enter.get()
     log.insert(END,a  + "\n")
     enter.delete(0, END)
-
+    sendosc()
+    
 def setenterinput(event):
     a = enter.get()
     log.insert(END,a + "\n")
     enter.delete(0, END)
+    sendosc()
+    
+    
+def sendosc():
+    a = enter.get()
+    a = str(a)
+    client.send_message("/avatar/parameters/stt", [a])
     
 def voicerecog():
     with sr.Microphone() as source:
@@ -57,31 +69,12 @@ startbt.place(x="700", y="140")
 
 #마이크 설정(미완성)
 for index, name in enumerate(sr.Microphone.list_microphone_names()):
-    print(enumerate(sr.Microphone.list_microphone_names()))
-    Mic=["{1} {0}".format(index, name)]
-    combobox = ttk.Combobox(root)
+    #enumerate(sr.Microphone.list_microphone_names())
+    #Mic=["{0}".format(name)]
+    combobox = ttk.Combobox(root, values=name)
     combobox.config(height=5)
-    combobox.config(values=Mic)
     combobox.config(state="readonly")
     combobox.set("Default Mic")
     combobox.place(x="780", y="270")   
 
 root.mainloop()
-
-
-
-
-
-'''
-with sr.Microphone() as source:
-    print("입력")
-    audio = r.listen(source)
-    print("입력 종료")
-    
-try:
-    print(r.recognize_google(audio, language='ko'))
-except sr.UnknownValueError:
-    print("Error")
-except sr.RequestError as e:
-    print("Req Error")
-'''
