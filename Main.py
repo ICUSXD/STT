@@ -21,6 +21,8 @@ def setenterinput(event):
     log.insert(END,a + "\n")
     enter.delete(0, END)
     sendosc()
+
+#def 
     
     
 def sendosc():
