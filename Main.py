@@ -9,7 +9,7 @@ ip = "127.0.0.1"
 port = 9000
 client = SimpleUDPClient(ip, port)  # Create client
 
-#전송 클래스
+#Class Setup
 def setinput():
     a = enter.get()
     log.insert(END,a  + "\n")
@@ -22,7 +22,9 @@ def setenterinput(event):
     enter.delete(0, END)
     sendosc()
 
-#def 
+def coor:
+    
+     
     
     
 def sendosc():
@@ -32,7 +34,6 @@ def sendosc():
     
 def voicerecog():
     with sr.Microphone() as source:
-        print("입력")
         audio = r.listen(source)
     try:
         sound  = r.recognize_google(audio, language='ko')
@@ -80,3 +81,8 @@ for index, name in enumerate(sr.Microphone.list_microphone_names()):
     combobox.place(x="780", y="270")   
 
 root.mainloop()
+
+
+
+
+#default Tiling:0.007874016 Offset:0.992126 max x=127 y=112 min:x=37 y=111 
